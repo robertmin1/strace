@@ -26,3 +26,8 @@ go run main.go wget google.com
 The program sets up a seccomp filter to trace only connect syscalls while allowing all other syscalls to pass through. 
 
 `PS:` The upstream implementation for tracking the entry and exit of syscalls while seccomp is active is not fully implemented.
+
+Using `seccomp` approach speeds up tracing by avoiding unnecessary syscalls, but is still slow for larger applications. 
+For better performance, I recommend using seccomp's user-space notification mechanism, which is up to three times faster based on personal testing. 
+
+I have a PoC in Golang that I’ll write about soon.
