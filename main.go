@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 
+	seccomp "github.com/seccomp/libseccomp-golang"
 	"github.com/u-root/u-root/pkg/strace"
 )
 
