@@ -25,8 +25,8 @@ func main() {
 	c.Stdin, c.Stdout, c.Stderr = os.Stdin, os.Stdout, os.Stderr
 
 	if err := strace.New(c, false, func(task strace.Task, record *strace.TraceRecord) error {
-		if record.Syscall.Sysno > 0 {
-			log.Printf("pid %d: %d", record.PID, record.Syscall.Sysno)
+		if record.Event == strace.SyscallExit || record.Event == strace.SyscallEnter {
+			log.Printf("\033[1;34mpid %d: \033[1;33mSyscall Number %d\033[0m", record.PID, record.Syscall.Sysno)
 		}
 		return nil
 	}); err != nil {
