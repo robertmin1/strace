@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"golang.org/x/sys/unix"
 
 	seccomp "github.com/seccomp/libseccomp-golang"
 	"github.com/u-root/u-root/pkg/strace"
@@ -30,7 +31,7 @@ func main() {
 		panic(err)
 	}
 
-	if err := strace.New(c, false, func(task strace.Task, record *strace.TraceRecord) error {
+	if err := strace.New(c, true, func(task strace.Task, record *strace.TraceRecord) error {
 		if record.Event == strace.SyscallExit || record.Event == strace.SyscallEnter {
 			log.Printf("\033[1;34mpid %d: \033[1;33mSyscall Number %d\033[0m", record.PID, record.Syscall.Sysno)
 		}
